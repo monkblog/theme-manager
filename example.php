@@ -20,7 +20,7 @@ $themeManager = new \ThemeManager\ThemeManager( (new \ThemeManager\Starter)->sta
 $themeManager = new \ThemeManager\ThemeManager( (new \ThemeManager\Starter)->start( __DIR__ . '/path/to/themes/' ) );
 
 //Optional Required Field(s)
-$themeManager = new \ThemeManager\ThemeManager( ( new \ThemeManager\Starter )->start( $basePath, $requiredFields ) );
+$themeManager = new \ThemeManager\ThemeManager( (new \ThemeManager\Starter)->start( $basePath, $requiredFields ) );
 
 //Via Theme Manager Starter Helper
 $themeManager = new \ThemeManager\ThemeManager( theme_manager_starter()->start() );
