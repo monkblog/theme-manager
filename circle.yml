@@ -12,4 +12,4 @@ test:
   override:
     - case $CIRCLE_NODE_INDEX in 0) php -d memory_limit=-1 vendor/bin/phpunit --coverage-clover build/logs/clover.xml ;; esac:
         parallel: true
-    - "$(if [ -z ${CODECLIMATE_REPO_TOKEN+x} ]; then echo 'env CODECLIMATE_REPO_TOKEN was not exported, must be a forked PR'; else ./vendor/bin/test-reporter; fi)"
+    - if [ -z ${CODECLIMATE_REPO_TOKEN+x} ]; then echo "env CODECLIMATE_REPO_TOKEN was not exported, must be a forked PR"; else ./vendor/bin/test-reporter; fi
