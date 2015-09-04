@@ -80,6 +80,38 @@ name: my-theme
     - theme.yml
 - vendor/
 
+## Using with Laravel
+
+Once Composer has installed or updated your packages, you need to register ThemeManager with Laravel. Go into your `config/app.php`, find the `providers` key and add:
+
+```
+'ThemeManager\ServiceProvider',
+```
+
+You can add the ThemeManager Facade, to have easier access to the ThemeManager globally:
+
+```
+'ThemeManager' => 'ThemeManager\Facade\ThemeManager',
+```
+
+#### Publish Config
+Run:
+
+```
+php artisan vendor:publish --tag=theme
+```
+
+#### Usages:
+
+```php
+ThemeManager::all();
+ThemeManager::getAllThemeNames();
+
+ThemeManager::themeExists( 'theme-name' );
+$theme = ThemeManager::getTheme( 'theme-name' );
+$themeName = $theme->getName();
+```
+
 ## Bootstrapping Theme Classes
 Bootstrapping theme Service Provider(s) or other important classes before the application runs:
 
@@ -116,38 +148,6 @@ You may also use the helper function as a shortcut:
 
 ```php
 $themeManager = theme_manager( null, [ 'display_name', 'version', 'license', ] );
-```
-
-## Using with Laravel
-
-Once Composer has installed or updated your packages, you need to register ThemeManager with Laravel. Go into your `config/app.php`, find the `providers` key and add:
-
-```
-'ThemeManager\ServiceProvider',
-```
-
-You can add the ThemeManager Facade, to have easier access to the ThemeManager globally:
-
-```
-'ThemeManager' => 'ThemeManager\Facade\ThemeManager',
-```
-
-#### Publish Config
-Run:
-
-```
-php artisan vendor:publish --tag=theme
-```
-
-#### Usages:
-
-```php
-ThemeManager::all();
-ThemeManager::getAllThemeNames();
-
-ThemeManager::themeExists( 'theme-name' );
-$theme = ThemeManager::getTheme( 'theme-name' );
-$themeName = $theme->getName();
 ```
 
 #### Override the base themes path:
