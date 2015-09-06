@@ -14,10 +14,10 @@ $requiredFields = [ 'display_name', 'version', 'license', ];
 theme_manager_starter()->bootstrapAutoload();
 
 //Via new
-$themeManager = new \ThemeManager\ThemeManager( (new \ThemeManager\Starter)->start() );
+$themeManager = new \ThemeManager\ThemeManager( ( new \ThemeManager\Starter )->start() );
 
 //Optionally pass in initial base path
-$themeManager = new \ThemeManager\ThemeManager( (new \ThemeManager\Starter)->start( __DIR__ . '/path/to/themes/' ) );
+$themeManager = new \ThemeManager\ThemeManager( ( new \ThemeManager\Starter )->start( __DIR__ . '/path/to/themes/' ) );
 
 //Optional Required Field(s)
 $themeManager = new \ThemeManager\ThemeManager( ( new \ThemeManager\Starter )->start( $basePath, $requiredFields ) );

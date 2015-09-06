@@ -8,22 +8,48 @@ class ThemeCollection extends Collection
 {
 
     /**
-     * @var array
+     * @var boolean
      */
-    private $themeNames = [ ];
+    protected $exceptionOnInvalid = false;
 
     /**
      * @var array
      */
-    protected $invalidThemes = [];
+    protected $invalidThemes = [ ];
+
+    /**
+     * @var array
+     */
+    protected $requiredFields = [ ];
+
+    /**
+     * @var array
+     */
+    protected $themesFolders = [ ];
+
+    /**
+     * @var array
+     */
+    protected $themeNames = [ ];
+
 
     /**
      * Create a new theme collection.
      *
-     * @param mixed $items
+     * @param mixed   $items
+     * @param boolean $themesFolder
+     * @param array   $requiredFields
+     * @param boolean $exceptionOnInvalid
      */
-    public function __construct( $items = [ ] )
+    public function __construct( $items = [ ], $themesFolder = false, Array $requiredFields = [ ], $exceptionOnInvalid = false )
     {
+        $this->requiredFields = $requiredFields;
+        $this->exceptionOnInvalid = $exceptionOnInvalid;
+
+        if( is_string( $themesFolder ) ) {
+            $themesFolder = realpath( $themesFolder );
+            $this->themesFolders[ $themesFolder ] = $themesFolder;
+        }
         $this->separateInvalidItems( $items );
 
         parent::__construct( $items );
@@ -34,6 +60,62 @@ class ThemeCollection extends Collection
                 $this->themeNames[] = $theme->getName();
             }
         }
+    }
+
+    /**
+     * @param mixed          $items
+     * @param string|boolean $addPath
+     *
+     * @return static
+     */
+    public function merge( $items, $addPath = false )
+    {
+        $themesPaths = $this->getThemesPaths();
+        /* @var $themeCollection $this */
+        $themeCollection = parent::merge( $items );
+
+        if( $addPath !== false ) {
+            $themesPaths[] = realpath( $addPath );
+        }
+        foreach( $themesPaths as $path ) {
+            $themeCollection->themesFolders[ $path ] = $path;
+        }
+
+        return $themeCollection;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequiredFields()
+    {
+        return $this->requiredFields;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getExceptionOnInvalid()
+    {
+        return $this->exceptionOnInvalid;
+    }
+
+    /**
+     * @return array
+     */
+    public function getThemesPaths()
+    {
+        return $this->themesFolders;
+    }
+
+    /**
+     * @param string $themesFolder
+     *
+     * @return boolean
+     */
+    public function pathExists( $themesFolder )
+    {
+        return ( is_string( $themesFolder ) && in_array( realpath( $themesFolder ), $this->themesFolders ) );
     }
 
     /**
