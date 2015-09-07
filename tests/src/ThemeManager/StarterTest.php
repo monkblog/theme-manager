@@ -19,7 +19,7 @@ class StarterTest extends PHPUnit_Framework_TestCase
      */
     public function testBootstrapAutoload()
     {
-        (new Starter)->bootstrapAutoload();
+        ( new Starter )->bootstrapAutoload();
 
         $this->assertTrue( class_exists( 'ThemeManager\TestAutoload\TestAutoloadServiceProvider' ) );
     }
@@ -30,7 +30,7 @@ class StarterTest extends PHPUnit_Framework_TestCase
      */
     public function testStart()
     {
-        $themeCollection = (new Starter)->start();
+        $themeCollection = ( new Starter )->start();
 
         $this->assertInstanceOf( 'ThemeManager\\ThemeCollection', $themeCollection );
     }
@@ -43,7 +43,7 @@ class StarterTest extends PHPUnit_Framework_TestCase
     {
         $path = themes_base_path() . '/../themes-test';
 
-        $themeCollection = (new Starter)->start( $path );
+        $themeCollection = ( new Starter )->start( $path );
 
         $this->assertInstanceOf( 'ThemeManager\\ThemeCollection', $themeCollection );
 
@@ -64,7 +64,7 @@ class StarterTest extends PHPUnit_Framework_TestCase
      */
     public function testStartExceptionHandler()
     {
-        (new Starter)->start( null, [], true );
+        ( new Starter )->start( null, [ ], true );
     }
 
     /**
@@ -77,7 +77,7 @@ class StarterTest extends PHPUnit_Framework_TestCase
     {
         $path = themes_base_path() . '/../themes-test';
 
-        (new Starter)->start( $path, [], true );
+        ( new Starter )->start( $path, [ ], true );
     }
 
     /**
@@ -88,7 +88,7 @@ class StarterTest extends PHPUnit_Framework_TestCase
      */
     public function testStartFail()
     {
-        (new Starter)->start( 'fake/src/testing' );
+        ( new Starter )->start( 'fake/src/testing' );
     }
 
     /**
@@ -101,7 +101,7 @@ class StarterTest extends PHPUnit_Framework_TestCase
     {
         putenv( "APP_ENV=local" );
 
-        (new Starter)->start();
+        ( new Starter )->start();
     }
 
 }

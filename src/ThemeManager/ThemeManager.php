@@ -105,18 +105,19 @@ class ThemeManager
 
     /**
      * @param         $path
-     * @param array   $requiredFields
-     * @param boolean $exceptionOnInvalid
      *
      * @return $this
      */
-    public function addThemeLocation( $path, Array $requiredFields = [], $exceptionOnInvalid = false  )
+    public function addThemeLocation( $path )
     {
-        $addLocation = ( new Starter( true ) )->start( $path, $requiredFields, $exceptionOnInvalid );
+        if( !$this->themes()->pathExists( $path ) ) {
 
-        $all = array_merge( $this->getInvalidThemes(), $addLocation->all(), $addLocation->getInvalidThemes() );
+            $addLocation = ( new Starter( true ) )->start( $path, $this->themes()->getRequiredFields(), $this->themes()->getExceptionOnInvalid() );
 
-        $this->themes = $this->themes()->merge( $all );
+            $all = array_merge( $this->getInvalidThemes(), $addLocation->all(), $addLocation->getInvalidThemes() );
+
+            $this->themes = $this->themes()->merge( $all, $path );
+        }
 
         return $this;
     }

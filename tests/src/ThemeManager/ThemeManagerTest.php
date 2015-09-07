@@ -19,6 +19,11 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
         $this->themeManager = new ThemeManager( ( new Starter )->start() );
     }
 
+    protected function setUpAlternative( $path = null, Array $requiredFields = [ ], $exceptionOnInvalid = false )
+    {
+        $this->themeManager = new ThemeManager( ( new Starter )->start( $path, $requiredFields, $exceptionOnInvalid ) );
+    }
+
     /**
      * @test
      * @group manager
@@ -34,7 +39,7 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAllThemeNamesCountThree()
     {
-        $this->assertEquals( 3,  $this->themeManager->countAll() );
+        $this->assertEquals( 3, $this->themeManager->countAll() );
     }
 
     /**
@@ -43,7 +48,7 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
      */
     public function testGetInvalidThemes()
     {
-        $this->assertEquals( 1,  $this->themeManager->getInvalidThemesCount() );
+        $this->assertEquals( 1, $this->themeManager->getInvalidThemesCount() );
     }
 
     /**
@@ -99,7 +104,7 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
         //example-theme is a Secondary Theme
         $this->assertEquals( 'Secondary', $this->themeManager->getTheme( 'example-theme' )->getLocationType() );
         //There should now be four themes
-        $this->assertEquals( 4,  $this->themeManager->countAll() );
+        $this->assertEquals( 4, $this->themeManager->countAll() );
     }
 
     /**
@@ -108,7 +113,7 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
      */
     public function testAddThemeLocationWithBadData()
     {
-        $this->assertEquals( 1,  $this->themeManager->getInvalidThemesCount() );
+        $this->assertEquals( 1, $this->themeManager->getInvalidThemesCount() );
 
         $addPath = themes_base_path() . '/../themes-test';
 
@@ -116,7 +121,75 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
 
         $this->assertNotEmpty( $this->themeManager->getInvalidThemes() );
 
-        $this->assertEquals( 3,  $this->themeManager->getInvalidThemesCount() );
+        $this->assertEquals( 3, $this->themeManager->getInvalidThemesCount() );
+    }
+
+    /**
+     * @test
+     * @group manager
+     */
+    public function testAddThemeLocationPreventDoubles()
+    {
+        $addPath = themes_base_path() . '/../themes-test';
+
+        $this->assertFalse( $this->themeManager->themes()->pathExists( $addPath ) );
+
+        $this->themeManager->addThemeLocation( $addPath );
+
+        $this->assertTrue( $this->themeManager->themes()->pathExists( $addPath ) );
+
+        $this->themeManager->addThemeLocation( $addPath );
+
+        $this->assertEquals( 3, $this->themeManager->getInvalidThemesCount() );
+
+        $this->assertEquals( 3, $this->themeManager->countAll() );
+    }
+
+
+
+    /**
+     * @test
+     * @group manager
+     *
+     * @expectedException \ThemeManager\Exceptions\EmptyThemeName
+     */
+    public function testAddThemeLocationEmptyThemeNameError()
+    {
+        $this->setUpAlternative( themes_base_path() . '/../themes-alternative', [ ], true );
+
+        $addPath = themes_base_path() . '/../themes-test';
+
+        $this->themeManager->addThemeLocation( $addPath );
+    }
+
+    /**
+     * @test
+     * @group manager
+     *
+     * @expectedException \ThemeManager\Exceptions\MissingRequiredFields
+     */
+    public function testAddThemeLocationMissingRequiredFieldsError()
+    {
+        $this->setUpAlternative( themes_base_path() . '/../themes-alternative', [ 'name', 'version' ], true );
+
+        $addPath = themes_base_path() . '/../themes-test';
+
+        $this->themeManager->addThemeLocation( $addPath );
+    }
+
+    /**
+     * @test
+     * @group manager
+     *
+     * @expectedException \ThemeManager\Exceptions\NoThemeName
+     */
+    public function testAddThemeLocationNoThemeNameError()
+    {
+        $this->setUpAlternative( themes_base_path() . '/../themes-alternative', [ 'name', 'version' ], true );
+
+        $addPath = themes_base_path();
+
+        $this->themeManager->addThemeLocation( $addPath );
     }
 
 }
