@@ -117,18 +117,35 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
 
         $addPath = themes_base_path() . '/../themes-test';
 
-        $this->assertFalse( $this->themeManager->themes()->pathExists( $addPath ) );
-
         $this->themeManager->addThemeLocation( $addPath );
 
         $this->assertNotEmpty( $this->themeManager->getInvalidThemes() );
 
         $this->assertEquals( 3, $this->themeManager->getInvalidThemesCount() );
+    }
+
+    /**
+     * @test
+     * @group manager
+     */
+    public function testAddThemeLocationPreventDoubles()
+    {
+        $addPath = themes_base_path() . '/../themes-test';
+
+        $this->assertFalse( $this->themeManager->themes()->pathExists( $addPath ) );
+
+        $this->themeManager->addThemeLocation( $addPath );
+
+        $this->assertTrue( $this->themeManager->themes()->pathExists( $addPath ) );
 
         $this->themeManager->addThemeLocation( $addPath );
 
         $this->assertEquals( 3, $this->themeManager->getInvalidThemesCount() );
+
+        $this->assertEquals( 3, $this->themeManager->countAll() );
     }
+
+
 
     /**
      * @test
