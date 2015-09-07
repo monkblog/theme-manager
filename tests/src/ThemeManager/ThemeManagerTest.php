@@ -16,12 +16,12 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->themeManager = new ThemeManager( ( new Starter )->start() );
+        $this->setUpAlternative();
     }
 
     protected function setUpAlternative( $path = null, Array $requiredFields = [ ], $exceptionOnInvalid = false )
     {
-        $this->themeManager = new ThemeManager( ( new Starter )->start( $path, $requiredFields, $exceptionOnInvalid ) );
+        $this->themeManager = theme_manager( $path, $requiredFields, $exceptionOnInvalid );
     }
 
     /**
@@ -86,6 +86,15 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals( 'Primary', $this->themeManager->first()->getLocationType() );
         $this->assertEquals( 'Primary', $this->themeManager->last()->getLocationType() );
+    }
+
+    /**
+     * @test
+     * @group manager
+     */
+    public function testReturnThis()
+    {
+        $this->assertInstanceOf( 'ThemeManager\\ThemeManager', $this->themeManager->returnThis() );
     }
 
     /**
