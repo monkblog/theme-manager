@@ -40,6 +40,10 @@ if( !function_exists( 'theme_manager' ) ) {
      */
     function theme_manager( $basePath = null, Array $requiredFields = [], $exceptionOnInvalid = false )
     {
+        if( function_exists( 'app' ) && class_exists( 'Illuminate\Container\Container' ) ) {
+            return app( 'theme.manager' );
+        }
+
         return new \ThemeManager\ThemeManager( theme_manager_starter()->start( $basePath, $requiredFields, $exceptionOnInvalid ) );
     }
 }
