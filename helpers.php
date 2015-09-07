@@ -52,7 +52,6 @@ if( !function_exists( 'theme_manager' ) ) {
     function theme_manager( $basePath = null, Array $requiredFields = [], $exceptionOnInvalid = false )
     {
         if( function_exists( 'app' ) && class_exists( 'Illuminate\Container\Container' ) &&
-            class_exists( 'Illuminate\Support\Facades\Config' ) &&
             Config::get( 'app.aliases.ThemeManager' ) == 'ThemeManager\Facade\ThemeManager' )
         {
             return \ThemeManager::returnThis();
