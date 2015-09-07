@@ -74,6 +74,9 @@ class ThemeCollection extends Collection
         /* @var $themeCollection $this */
         $themeCollection = parent::merge( $items );
 
+        $themeCollection->requiredFields = $this->requiredFields;
+        $themeCollection->exceptionOnInvalid = $this->exceptionOnInvalid;
+
         if( $addPath !== false ) {
             $themesPaths[] = realpath( $addPath );
         }
