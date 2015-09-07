@@ -1,18 +1,29 @@
 <?php
 
+use Illuminate\Support\Facades\Config;
+use ThemeManager\Starter;
+use ThemeManager\ThemeManager;
+
 if( !function_exists( 'themes_base_path' ) ) {
     /**
      * @return string|boolean
      */
     function themes_base_path()
     {
-        if( is_dir( realpath( __DIR__ . '/../../../vendor' ) ) ) {
-            return realpath( __DIR__ . '/../../../themes' );
+        $base = __DIR__ . '/../../../';
+        $vendor = realpath( $base . 'vendor' );
+        $themes = realpath( $base . 'themes' );
+
+        if( is_dir( $vendor ) ) {
+
+            return $themes;
         }
-        if( is_dir( realpath( __DIR__ . '/../../../themes' ) ) ) {
-            return realpath( __DIR__ . '/../../../themes' );
+        if( is_dir( $themes ) ) {
+
+            return $themes;
         }
         if( getenv( 'APP_ENV' ) === 'testing' ) {
+
             return realpath( __DIR__ . '/tests/themes' );
         }
 
@@ -24,8 +35,9 @@ if( ! function_exists( 'theme_manager_starter' ) ) {
     /**
      * @return \ThemeManager\Starter
      */
-    function theme_manager_starter() {
-        return new \ThemeManager\Starter;
+    function theme_manager_starter()
+    {
+        return new Starter;
     }
 }
 
@@ -39,10 +51,13 @@ if( !function_exists( 'theme_manager' ) ) {
      */
     function theme_manager( $basePath = null, Array $requiredFields = [], $exceptionOnInvalid = false )
     {
-        if( function_exists( 'app' ) && class_exists( 'Illuminate\Container\Container' ) ) {
-            return ThemeManager::returnThis();
+        if( function_exists( 'app' ) && class_exists( 'Illuminate\Container\Container' ) &&
+            class_exists( 'Illuminate\Support\Facades\Config' ) &&
+            Config::get( 'app.aliases.ThemeManager' ) == 'ThemeManager\Facade\ThemeManager' )
+        {
+            return \ThemeManager::returnThis();
         }
 
-        return new \ThemeManager\ThemeManager( theme_manager_starter()->start( $basePath, $requiredFields, $exceptionOnInvalid ) );
+        return new ThemeManager( theme_manager_starter()->start( $basePath, $requiredFields, $exceptionOnInvalid ) );
     }
 }
