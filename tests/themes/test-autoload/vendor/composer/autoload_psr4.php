@@ -5,6 +5,6 @@
 $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
-return array(
-    'ThemeManager\\TestAutoload\\' => array($baseDir . '/src/TestAutoload'),
-);
+return [
+    'ThemeManager\\TestAutoload\\' => [$baseDir . '/src/TestAutoload'],
+];

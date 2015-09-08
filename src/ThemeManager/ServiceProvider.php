@@ -15,7 +15,7 @@ class ServiceProvider extends ServiceProviderSupport
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/config/theme-manager.php' => config_path( 'theme-manager.php' ),
+            __DIR__ . '/config/theme-manager.php' => config_path('theme-manager.php'),
         ], 'theme');
     }
 
@@ -26,13 +26,12 @@ class ServiceProvider extends ServiceProviderSupport
      */
     public function register()
     {
-        $this->app->bind( 'theme.manager', function ()
-        {
-            $basePath = Config::get( 'theme-manager.base_path', null );
-            $requiredFields = Config::get( 'theme-manager.required_fields', [] );
-            $exceptionOnInvalid = Config::get( 'theme-manager.exception_on_invalid', false );
+        $this->app->bind('theme.manager', function () {
+            $basePath = Config::get('theme-manager.base_path', null);
+            $requiredFields = Config::get('theme-manager.required_fields', []);
+            $exceptionOnInvalid = Config::get('theme-manager.exception_on_invalid', false);
 
-            return new ThemeManager( ( new Starter )->start( $basePath, $requiredFields, $exceptionOnInvalid ) );
-        } );
+            return new ThemeManager((new Starter)->start($basePath, $requiredFields, $exceptionOnInvalid));
+        });
     }
 }

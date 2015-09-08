@@ -1,8 +1,8 @@
 {
-    "name": "test-autoload",
-    "autoload": {
-        "psr-4": {
-            "ThemeManager\\TestAutoload\\": "src/TestAutoload/"
-        }
+  "name": "test-autoload",
+  "autoload": {
+    "psr-4": {
+      "ThemeManager\\TestAutoload\\": "src/TestAutoload/"
     }
+  }
 }

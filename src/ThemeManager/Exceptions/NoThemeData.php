@@ -21,15 +21,15 @@ class NoThemeData extends OutOfBoundsException
      * @param int            $code
      * @param Exception|null $previous
      */
-    public function __construct( $themePath, Theme $theme = null, $subMessage = false, $code = 0, Exception $previous = null )
+    public function __construct($themePath, Theme $theme = null, $subMessage = false, $code = 0, Exception $previous = null)
     {
-        $message = "Theme {$themePath} " . ( $subMessage ?: "doesn't have any theme meta data defined." );
+        $message = "Theme {$themePath} " . ($subMessage ?: "doesn't have any theme meta data defined.");
 
-        if( !is_null( $theme ) ) {
+        if(!is_null($theme)) {
             $this->theme = $theme;
         }
 
-        parent::__construct( $message, $code, $previous );
+        parent::__construct($message, $code, $previous);
     }
 
     /**

@@ -83,10 +83,10 @@ class Theme
      * @param boolean $yaml
      * @param boolean $isSecondary
      */
-    public function __construct( $path, Array $requiredFields = [], $yaml = false, $isSecondary = false )
+    public function __construct($path, Array $requiredFields = [], $yaml = false, $isSecondary = false)
     {
         $this->basePath = $path;
-        $this->locationType = ( $isSecondary ) ? 'Secondary' : 'Primary';
+        $this->locationType = ($isSecondary) ? 'Secondary' : 'Primary';
         $this->requiredFields = $requiredFields;
         $this->ymlFileExtension = $yaml ? '.yaml' : '.yml';
 
@@ -102,7 +102,7 @@ class Theme
      */
     protected function setThemeYmlPath()
     {
-        $this->yml = $this->basePath( $this->fileName . $this->ymlExtension() );
+        $this->yml = $this->basePath($this->fileName . $this->ymlExtension());
 
         return $this;
     }
@@ -112,8 +112,8 @@ class Theme
      */
     protected function setAutoloadPath()
     {
-        if( file_exists( $this->basePath( rtrim( $this->autoloadPath, '/' ) . '/autoload.php' ) ) ) {
-            $this->autoload = $this->basePath( rtrim( $this->autoloadPath, '/' ) . '/autoload.php' );
+        if(file_exists($this->basePath(rtrim($this->autoloadPath, '/') . '/autoload.php'))) {
+            $this->autoload = $this->basePath(rtrim($this->autoloadPath, '/') . '/autoload.php');
         }
 
         return $this;
@@ -124,7 +124,7 @@ class Theme
      */
     protected function setInfo()
     {
-        $this->info = Yaml::parse( $this->yml );
+        $this->info = Yaml::parse($this->yml);
 
         return $this;
     }
@@ -140,19 +140,19 @@ class Theme
     {
         $info = $this->getInfo();
 
-        if( !is_array( $info ) ) {
+        if(!is_array($info)) {
             $this->setError('No Theme Data');
-            throw new NoThemeData( $this->getYmlPath(), $this );
+            throw new NoThemeData($this->getYmlPath(), $this);
         }
-        else if( !array_key_exists( 'name', $info ) ) {
+        else if(!array_key_exists('name', $info)) {
             $this->setError();
-            throw new NoThemeName( $this->getYmlPath(), $this );
+            throw new NoThemeName($this->getYmlPath(), $this);
         }
-        else if( empty( $info[ 'name' ] ) ) {
-            $this->setError( 'Empty Theme Name' );
-            throw new EmptyThemeName( $this->getYmlPath(), $this );
+        else if(empty($info['name'])) {
+            $this->setError('Empty Theme Name');
+            throw new EmptyThemeName($this->getYmlPath(), $this);
         }
-        $this->name = $info[ 'name' ];
+        $this->name = $info['name'];
 
         return $this;
     }
@@ -164,18 +164,18 @@ class Theme
      */
     protected function checkRequiredFields()
     {
-        if( !empty( $this->requiredFields ) ) {
-            foreach( $this->requiredFields as $field ) {
-                if( is_string( $field ) && ( $this->getInfoByKey( $field ) === false ||
-                    !isset( $this->info[ $field ] ) ) )
-                {
+        if(!empty($this->requiredFields)) {
+            foreach($this->requiredFields as $field) {
+                if(is_string($field) && ($this->getInfoByKey($field) === false ||
+                        !isset($this->info[$field]))
+                ) {
                     $this->missingRequiredFields[] = $field;
                 }
             }
 
-            if( !empty( $this->missingRequiredFields ) ) {
-                $this->setError( 'Missing Required Field(s)' );
-                throw new MissingRequiredFields( $this->getYmlPath(), $this );
+            if(!empty($this->missingRequiredFields)) {
+                $this->setError('Missing Required Field(s)');
+                throw new MissingRequiredFields($this->getYmlPath(), $this);
             }
         }
 
@@ -185,15 +185,17 @@ class Theme
     /**
      * @return array
      */
-        public function getMissingRequiredFields() {
+    public function getMissingRequiredFields()
+    {
         return $this->missingRequiredFields;
     }
 
     /**
      * @return int
      */
-    public function countMissingRequiredFields() {
-        return count( $this->missingRequiredFields );
+    public function countMissingRequiredFields()
+    {
+        return count($this->missingRequiredFields);
     }
 
     /**
@@ -201,7 +203,7 @@ class Theme
      *
      * @return $this
      */
-    protected function setError( $type = 'No Name' )
+    protected function setError($type = 'No Name')
     {
         $this->error = true;
         $this->errorType = $type;
@@ -238,13 +240,14 @@ class Theme
      */
     public function getYmlPath()
     {
-        return realpath( $this->yml ) ?: '{path undefined}';
+        return realpath($this->yml) ?: '{path undefined}';
     }
 
     /**
      * @return string
      */
-    public function getLocationType() {
+    public function getLocationType()
+    {
         return $this->locationType;
     }
 
@@ -253,7 +256,7 @@ class Theme
      */
     public function registerAutoload()
     {
-        if( !is_null( $this->getAutoloadPath() ) ) {
+        if(!is_null($this->getAutoloadPath())) {
             require_once "{$this->getAutoloadPath()}";
         }
 
@@ -281,10 +284,10 @@ class Theme
      *
      * @return boolean|mixed
      */
-    public function getInfoByKey( $key )
+    public function getInfoByKey($key)
     {
-        if( array_has( $this->getInfo(), $key ) ) {
-            return array_get( $this->getInfo(), $key );
+        if(array_has($this->getInfo(), $key)) {
+            return array_get($this->getInfo(), $key);
         }
 
         return false;
@@ -295,9 +298,9 @@ class Theme
      *
      * @return boolean|mixed
      */
-    public function __get( $key )
+    public function __get($key)
     {
-        return $this->getInfoByKey( $key );
+        return $this->getInfoByKey($key);
     }
 
     /**
@@ -313,9 +316,9 @@ class Theme
      *
      * @return string
      */
-    public function basePath( $path = null )
+    public function basePath($path = null)
     {
-        return $this->basePath . ( $path ? DIRECTORY_SEPARATOR . $path : $path );
+        return $this->basePath . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 
 }
