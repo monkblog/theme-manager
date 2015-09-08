@@ -3,12 +3,15 @@ engines:
     enabled: true
   fixme:
     enabled: true
+ratings:
+  paths:
+    - "src/**"
 exclude_paths:
 - "example.php"
 - "helpers.php"
 - "phpunit.php"
-- "src/ThemeManager/config/*"
+- "src/ThemeManager/config/**/*"
 - "src/ThemeManager/ServiceProvider.php"
-- "src/ThemeManager/Facade/*"
-- "tests/*"
-- "vendor/*"
+- "src/ThemeManager/Facade/**/*"
+- "tests/**/*"
+- "vendor/**/*"
