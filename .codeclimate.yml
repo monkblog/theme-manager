@@ -1,11 +1,14 @@
 engines:
   phpcodesniffer:
     enabled: true
+    config:
+      file_extensions: "php"
+      ignore_warnings: true
   fixme:
     enabled: true
 ratings:
   paths:
-    - "src/**"
+    - "src/**.php"
 exclude_paths:
 - "example.php"
 - "helpers.php"
