@@ -110,7 +110,7 @@ class ThemeManager
      */
     public function addThemeLocation($path)
     {
-        if(!empty($path) && !$this->themes()->pathExists($path)) {
+        if (!empty($path) && !$this->themes()->pathExists($path)) {
 
             $addLocation = (new Starter(true))->start($path, $this->themes()->getRequiredFields(), $this->themes()->getExceptionOnInvalid());
 

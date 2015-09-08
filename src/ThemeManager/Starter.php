@@ -63,7 +63,7 @@ class Starter
         $collection = $this->start($basePath, $requiredFields, $exceptionOnInvalid);
 
         $collection->each(function ($theme) {
-            if($theme instanceof Theme) {
+            if ($theme instanceof Theme) {
                 $theme->registerAutoload();
             }
         });
@@ -98,7 +98,7 @@ class Starter
     {
         $this->themesFolder = $basePath ?: themes_base_path();
 
-        if(!is_dir($this->themesFolder)) {
+        if (!is_dir($this->themesFolder)) {
             throw new MissingThemesFolder($this->themesFolder);
         }
     }
@@ -112,12 +112,12 @@ class Starter
     private function find($file, Array $requiredFields = [])
     {
         $files = $this->finder->in($this->themesFolder)->files()->name($file)->depth('<= 2')->followLinks();
-        if(!empty($files)) {
+        if (!empty($files)) {
             $themes = [];
             /* @var $file SplFileInfo */
-            foreach($files as $file) {
+            foreach ($files as $file) {
                 $path = rtrim($file->getPath(), DIRECTORY_SEPARATOR);
-                if(!empty($path) && file_exists($file)) {
+                if (!empty($path) && file_exists($file)) {
                     $this->addTheme($themes, $path, $file, $requiredFields);
                 }
             }
@@ -145,8 +145,8 @@ class Starter
 
             return $themes[$path] = new Theme($path, $requiredFields, $isYaml, $this->isSecondaryLocation);
         }
-        catch(NoThemeData $error) {
-            if($this->exceptionOnInvalid === false && $error->getTheme()) {
+        catch (NoThemeData $error) {
+            if ($this->exceptionOnInvalid === false && $error->getTheme()) {
                 return $themes[$path] = $error->getTheme();
             }
 

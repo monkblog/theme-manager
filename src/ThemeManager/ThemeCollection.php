@@ -46,7 +46,7 @@ class ThemeCollection extends Collection
         $this->requiredFields = $requiredFields;
         $this->exceptionOnInvalid = $exceptionOnInvalid;
 
-        if(is_string($themesFolder)) {
+        if (is_string($themesFolder)) {
             $themesFolder = realpath($themesFolder);
             $this->themesFolders[$themesFolder] = $themesFolder;
         }
@@ -55,8 +55,8 @@ class ThemeCollection extends Collection
         parent::__construct($items);
 
         /* @var $theme Theme */
-        foreach($this->items as $theme) {
-            if($theme instanceof Theme) {
+        foreach ($this->items as $theme) {
+            if ($theme instanceof Theme) {
                 $this->themeNames[] = $theme->getName();
             }
         }
@@ -77,10 +77,10 @@ class ThemeCollection extends Collection
         $themeCollection->requiredFields = $this->requiredFields;
         $themeCollection->exceptionOnInvalid = $this->exceptionOnInvalid;
 
-        if($addPath !== false) {
+        if ($addPath !== false) {
             $themesPaths[] = realpath($addPath);
         }
-        foreach($themesPaths as $path) {
+        foreach ($themesPaths as $path) {
             $themeCollection->themesFolders[$path] = $path;
         }
 
@@ -128,8 +128,8 @@ class ThemeCollection extends Collection
      */
     public function separateInvalidItems(&$items)
     {
-        foreach($items as $key => $theme) {
-            if($theme instanceof Theme && $theme->hasError()) {
+        foreach ($items as $key => $theme) {
+            if ($theme instanceof Theme && $theme->hasError()) {
                 $this->invalidThemes[] = $theme;
                 unset($items[$key]);
             }
@@ -179,8 +179,8 @@ class ThemeCollection extends Collection
     public function getTheme($name)
     {
         /* @var $theme Theme */
-        foreach($this->items as $theme) {
-            if($theme instanceof Theme && $theme->getName() == $name) {
+        foreach ($this->items as $theme) {
+            if ($theme instanceof Theme && $theme->getName() == $name) {
                 return $theme;
             }
         }

@@ -95,7 +95,7 @@ class ThemeTest extends PHPUnit_Framework_TestCase
         try {
             new Theme(themes_base_path() . '/demo', $requiredFields);
         }
-        catch(NoThemeData $error) {
+        catch (NoThemeData $error) {
             $theme = $error->getTheme();
             $this->assertEquals('Missing Required Field(s)', $theme->getErrorType());
             $this->assertEquals($requiredFields, $theme->getMissingRequiredFields());
@@ -112,7 +112,7 @@ class ThemeTest extends PHPUnit_Framework_TestCase
         try {
             new Theme(themes_base_path() . '/../themes-test/no-name');
         }
-        catch(NoThemeData $error) {
+        catch (NoThemeData $error) {
             $theme = $error->getTheme();
             $this->assertEquals('No Name', $theme->getErrorType());
         }
@@ -128,7 +128,7 @@ class ThemeTest extends PHPUnit_Framework_TestCase
         try {
             new Theme(themes_base_path() . '/../themes-test/empty-name');
         }
-        catch(NoThemeData $error) {
+        catch (NoThemeData $error) {
             $theme = $error->getTheme();
             $this->assertEquals('Empty Theme Name', $theme->getErrorType());
         }

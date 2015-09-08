@@ -25,7 +25,7 @@ class NoThemeData extends OutOfBoundsException
     {
         $message = "Theme {$themePath} " . ($subMessage ?: "doesn't have any theme meta data defined.");
 
-        if(!is_null($theme)) {
+        if (!is_null($theme)) {
             $this->theme = $theme;
         }
 

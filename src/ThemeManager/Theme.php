@@ -112,7 +112,7 @@ class Theme
      */
     protected function setAutoloadPath()
     {
-        if(file_exists($this->basePath(rtrim($this->autoloadPath, '/') . '/autoload.php'))) {
+        if (file_exists($this->basePath(rtrim($this->autoloadPath, '/') . '/autoload.php'))) {
             $this->autoload = $this->basePath(rtrim($this->autoloadPath, '/') . '/autoload.php');
         }
 
@@ -140,15 +140,15 @@ class Theme
     {
         $info = $this->getInfo();
 
-        if(!is_array($info)) {
+        if (!is_array($info)) {
             $this->setError('No Theme Data');
             throw new NoThemeData($this->getYmlPath(), $this);
         }
-        else if(!array_key_exists('name', $info)) {
+        else if (!array_key_exists('name', $info)) {
             $this->setError();
             throw new NoThemeName($this->getYmlPath(), $this);
         }
-        else if(empty($info['name'])) {
+        else if (empty($info['name'])) {
             $this->setError('Empty Theme Name');
             throw new EmptyThemeName($this->getYmlPath(), $this);
         }
@@ -164,16 +164,16 @@ class Theme
      */
     protected function checkRequiredFields()
     {
-        if(!empty($this->requiredFields)) {
-            foreach($this->requiredFields as $field) {
-                if(is_string($field) && ($this->getInfoByKey($field) === false ||
+        if (!empty($this->requiredFields)) {
+            foreach ($this->requiredFields as $field) {
+                if (is_string($field) && ($this->getInfoByKey($field) === false ||
                         !isset($this->info[$field]))
                 ) {
                     $this->missingRequiredFields[] = $field;
                 }
             }
 
-            if(!empty($this->missingRequiredFields)) {
+            if (!empty($this->missingRequiredFields)) {
                 $this->setError('Missing Required Field(s)');
                 throw new MissingRequiredFields($this->getYmlPath(), $this);
             }
@@ -256,7 +256,7 @@ class Theme
      */
     public function registerAutoload()
     {
-        if(!is_null($this->getAutoloadPath())) {
+        if (!is_null($this->getAutoloadPath())) {
             require_once "{$this->getAutoloadPath()}";
         }
 
@@ -286,7 +286,7 @@ class Theme
      */
     public function getInfoByKey($key)
     {
-        if(array_has($this->getInfo(), $key)) {
+        if (array_has($this->getInfo(), $key)) {
             return array_get($this->getInfo(), $key);
         }
 
