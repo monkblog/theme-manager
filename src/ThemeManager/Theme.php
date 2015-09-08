@@ -144,11 +144,11 @@ class Theme
             $this->setError('No Theme Data');
             throw new NoThemeData($this->getYmlPath(), $this);
         }
-        else if (!array_key_exists('name', $info)) {
+        elseif (!array_key_exists('name', $info)) {
             $this->setError();
             throw new NoThemeName($this->getYmlPath(), $this);
         }
-        else if (empty($info['name'])) {
+        elseif (empty($info['name'])) {
             $this->setError('Empty Theme Name');
             throw new EmptyThemeName($this->getYmlPath(), $this);
         }
