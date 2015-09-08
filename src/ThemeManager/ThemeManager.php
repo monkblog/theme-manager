@@ -14,7 +14,7 @@ class ThemeManager
     /**
      * @param ThemeCollection $themes
      */
-    public function __construct( ThemeCollection $themes )
+    public function __construct(ThemeCollection $themes)
     {
         $this->themes = $themes;
     }
@@ -48,9 +48,9 @@ class ThemeManager
      *
      * @return boolean|Theme
      */
-    public function getTheme( $name )
+    public function getTheme($name)
     {
-        return $this->themes()->getTheme( $name );
+        return $this->themes()->getTheme($name);
     }
 
     /**
@@ -58,9 +58,9 @@ class ThemeManager
      *
      * @return boolean
      */
-    public function themeExists( $name )
+    public function themeExists($name)
     {
-        return $this->themes()->themeExists( $name );
+        return $this->themes()->themeExists($name);
     }
 
     /**
@@ -108,15 +108,15 @@ class ThemeManager
      *
      * @return $this
      */
-    public function addThemeLocation( $path )
+    public function addThemeLocation($path)
     {
-        if( !empty( $path ) && !$this->themes()->pathExists( $path ) ) {
+        if(!empty($path) && !$this->themes()->pathExists($path)) {
 
-            $addLocation = ( new Starter( true ) )->start( $path, $this->themes()->getRequiredFields(), $this->themes()->getExceptionOnInvalid() );
+            $addLocation = (new Starter(true))->start($path, $this->themes()->getRequiredFields(), $this->themes()->getExceptionOnInvalid());
 
-            $all = array_merge( $this->getInvalidThemes(), $addLocation->all(), $addLocation->getInvalidThemes() );
+            $all = array_merge($this->getInvalidThemes(), $addLocation->all(), $addLocation->getInvalidThemes());
 
-            $this->themes = $this->themes()->merge( $all, $path );
+            $this->themes = $this->themes()->merge($all, $path);
         }
 
         return $this;

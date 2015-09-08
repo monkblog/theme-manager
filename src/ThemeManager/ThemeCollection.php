@@ -15,22 +15,22 @@ class ThemeCollection extends Collection
     /**
      * @var array
      */
-    protected $invalidThemes = [ ];
+    protected $invalidThemes = [];
 
     /**
      * @var array
      */
-    protected $requiredFields = [ ];
+    protected $requiredFields = [];
 
     /**
      * @var array
      */
-    protected $themesFolders = [ ];
+    protected $themesFolders = [];
 
     /**
      * @var array
      */
-    protected $themeNames = [ ];
+    protected $themeNames = [];
 
 
     /**
@@ -41,22 +41,22 @@ class ThemeCollection extends Collection
      * @param array   $requiredFields
      * @param boolean $exceptionOnInvalid
      */
-    public function __construct( $items = [ ], $themesFolder = false, Array $requiredFields = [ ], $exceptionOnInvalid = false )
+    public function __construct($items = [], $themesFolder = false, Array $requiredFields = [], $exceptionOnInvalid = false)
     {
         $this->requiredFields = $requiredFields;
         $this->exceptionOnInvalid = $exceptionOnInvalid;
 
-        if( is_string( $themesFolder ) ) {
-            $themesFolder = realpath( $themesFolder );
-            $this->themesFolders[ $themesFolder ] = $themesFolder;
+        if(is_string($themesFolder)) {
+            $themesFolder = realpath($themesFolder);
+            $this->themesFolders[$themesFolder] = $themesFolder;
         }
-        $this->separateInvalidItems( $items );
+        $this->separateInvalidItems($items);
 
-        parent::__construct( $items );
+        parent::__construct($items);
 
         /* @var $theme Theme */
-        foreach( $this->items as $theme ) {
-            if( $theme instanceof Theme ) {
+        foreach($this->items as $theme) {
+            if($theme instanceof Theme) {
                 $this->themeNames[] = $theme->getName();
             }
         }
@@ -68,20 +68,20 @@ class ThemeCollection extends Collection
      *
      * @return static
      */
-    public function merge( $items, $addPath = false )
+    public function merge($items, $addPath = false)
     {
         $themesPaths = $this->getThemesPaths();
         /* @var $themeCollection $this */
-        $themeCollection = parent::merge( $items );
+        $themeCollection = parent::merge($items);
 
         $themeCollection->requiredFields = $this->requiredFields;
         $themeCollection->exceptionOnInvalid = $this->exceptionOnInvalid;
 
-        if( $addPath !== false ) {
-            $themesPaths[] = realpath( $addPath );
+        if($addPath !== false) {
+            $themesPaths[] = realpath($addPath);
         }
-        foreach( $themesPaths as $path ) {
-            $themeCollection->themesFolders[ $path ] = $path;
+        foreach($themesPaths as $path) {
+            $themeCollection->themesFolders[$path] = $path;
         }
 
         return $themeCollection;
@@ -116,9 +116,9 @@ class ThemeCollection extends Collection
      *
      * @return boolean
      */
-    public function pathExists( $themesFolder )
+    public function pathExists($themesFolder)
     {
-        return ( is_string( $themesFolder ) && in_array( realpath( $themesFolder ), $this->themesFolders ) );
+        return (is_string($themesFolder) && in_array(realpath($themesFolder), $this->themesFolders));
     }
 
     /**
@@ -126,15 +126,15 @@ class ThemeCollection extends Collection
      *
      * @return $this
      */
-    public function separateInvalidItems( &$items )
+    public function separateInvalidItems(&$items)
     {
-        foreach( $items as $key => $theme ) {
-            if( $theme instanceof Theme && $theme->hasError() ) {
+        foreach($items as $key => $theme) {
+            if($theme instanceof Theme && $theme->hasError()) {
                 $this->invalidThemes[] = $theme;
-                unset( $items[ $key ] );
+                unset($items[$key]);
             }
         }
-        array_values( array_filter( $items ) );
+        array_values(array_filter($items));
 
         return $this;
     }
@@ -144,7 +144,7 @@ class ThemeCollection extends Collection
      */
     public function invalidCount()
     {
-        return count( $this->invalidThemes );
+        return count($this->invalidThemes);
     }
 
     /**
@@ -176,11 +176,11 @@ class ThemeCollection extends Collection
      *
      * @return boolean|Theme
      */
-    public function getTheme( $name )
+    public function getTheme($name)
     {
         /* @var $theme Theme */
-        foreach( $this->items as $theme ) {
-            if( $theme instanceof Theme && $theme->getName() == $name ) {
+        foreach($this->items as $theme) {
+            if($theme instanceof Theme && $theme->getName() == $name) {
                 return $theme;
             }
         }
@@ -201,8 +201,8 @@ class ThemeCollection extends Collection
      *
      * @return boolean
      */
-    public function themeExists( $name )
+    public function themeExists($name)
     {
-        return ( in_array( $name, $this->themeNames ) && !is_null( $this->getTheme( $name ) ) );
+        return (in_array($name, $this->themeNames) && !is_null($this->getTheme($name)));
     }
 }

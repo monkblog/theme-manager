@@ -3,21 +3,21 @@
 require_once 'vendor/autoload.php';
 
 $basePath = null;
-$requiredFields = [ 'display_name', 'version', 'license', ];
+$requiredFields = ['display_name', 'version', 'license',];
 
 /**
  * Laravel
  */
-if( function_exists('app') && function_exists('base_path') && class_exists( 'ThemeManager' ) ) {
+if(function_exists('app') && function_exists('base_path') && class_exists('ThemeManager')) {
     use ThemeManager;
 
     $allThemes = ThemeMangaer::all();
 
-    $themeExists = ThemeMangaer::themeExists( 'theme-name' );
+    $themeExists = ThemeMangaer::themeExists('theme-name');
 
     /** @var $theme ThemeManager\Theme */
-    if( $themeExists ) {
-        $theme = ThemeMangaer::getTheme( 'theme-name' );
+    if($themeExists) {
+        $theme = ThemeMangaer::getTheme('theme-name');
     }
     else {
         $theme = ThemeManager::first();
@@ -27,31 +27,31 @@ if( function_exists('app') && function_exists('base_path') && class_exists( 'The
 
     $themeMeta = $theme->getInfo();
 
-    ThemeMangaer::addThemeLocation( base_path( '/path/to/alternative/themes-folder' ) );
+    ThemeMangaer::addThemeLocation(base_path('/path/to/alternative/themes-folder'));
 }
 
 /**
  * Via new Class
  */
 //Bootstrapping theme php files if autoload.php file is present
-( new \ThemeManager\Starter )->bootstrapAutoload();
+(new \ThemeManager\Starter)->bootstrapAutoload();
 //OR via helper
 theme_manager_starter()->bootstrapAutoload();
 
 //Via new
-$themeManager = new \ThemeManager\ThemeManager( ( new \ThemeManager\Starter )->start() );
+$themeManager = new \ThemeManager\ThemeManager((new \ThemeManager\Starter)->start());
 
 //Optionally pass in initial base path
-$themeManager = new \ThemeManager\ThemeManager( ( new \ThemeManager\Starter )->start( __DIR__ . '/path/to/themes/' ) );
+$themeManager = new \ThemeManager\ThemeManager((new \ThemeManager\Starter)->start(__DIR__ . '/path/to/themes/'));
 
 //Optional Required Field(s)
-$themeManager = new \ThemeManager\ThemeManager( ( new \ThemeManager\Starter )->start( $basePath, $requiredFields ) );
+$themeManager = new \ThemeManager\ThemeManager((new \ThemeManager\Starter)->start($basePath, $requiredFields));
 
 //Via Theme Manager Starter Helper
-$themeManager = new \ThemeManager\ThemeManager( theme_manager_starter()->start() );
+$themeManager = new \ThemeManager\ThemeManager(theme_manager_starter()->start());
 
 // Exception On Invalid
-$themeManager = new \ThemeManager\ThemeManager( theme_manager_starter()->start( $basePath, $requiredFields, true ) );
+$themeManager = new \ThemeManager\ThemeManager(theme_manager_starter()->start($basePath, $requiredFields, true));
 
 /**
  * Via Helper
@@ -59,22 +59,22 @@ $themeManager = new \ThemeManager\ThemeManager( theme_manager_starter()->start( 
 $themeManager = theme_manager();
 
 //Optionally pass in initial base path
-$themeManager = theme_manager( __DIR__ . '/path/to/themes/' );
+$themeManager = theme_manager(__DIR__ . '/path/to/themes/');
 
 //Optional Required Field(s)
-$themeManager = theme_manager( $basePath, $requiredFields );
+$themeManager = theme_manager($basePath, $requiredFields);
 
 // Exception On Invalid
-$themeManager = theme_manager( $basePath, $requiredFields, true );
+$themeManager = theme_manager($basePath, $requiredFields, true);
 
 //ThemeCollection
 $allThemes = $themeManager->all();
 
 //Returns bool
-$myThemeExists = $themeManager->themeExists( 'theme-name' ) ? 'yes' : 'nope';
+$myThemeExists = $themeManager->themeExists('theme-name') ? 'yes' : 'nope';
 
 //Theme Obj or null
-$myTheme = $themeManager->getTheme( 'theme-name' );
+$myTheme = $themeManager->getTheme('theme-name');
 
 //Array
 $myThemeInfo = $myTheme->getInfo();
@@ -89,4 +89,4 @@ $firstTheme = $allThemes->first();
 $lastTheme = $allThemes->last();
 
 //Add another location of themes to the ThemeManager
-$themeManager->addThemeLocation( __DIR__ . '/path/to/alternative/themes-folder' );
+$themeManager->addThemeLocation(__DIR__ . '/path/to/alternative/themes-folder');

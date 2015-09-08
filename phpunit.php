@@ -21,4 +21,4 @@ require __DIR__ . '/vendor/autoload.php';
 | the PHP date and date-time functions throughout the application.
 |
 */
-date_default_timezone_set( 'UTC' );
+date_default_timezone_set('UTC');

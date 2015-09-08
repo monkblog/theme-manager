@@ -3,6 +3,7 @@
 namespace ThemeManager\TestAutoload;
 
 
-class TestAutoloadServiceProvider {
+class TestAutoloadServiceProvider
+{
 
 }

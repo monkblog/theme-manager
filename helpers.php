@@ -4,34 +4,34 @@ use Illuminate\Support\Facades\Config;
 use ThemeManager\Starter;
 use ThemeManager\ThemeManager;
 
-if( !function_exists( 'themes_base_path' ) ) {
+if(!function_exists('themes_base_path')) {
     /**
      * @return string|boolean
      */
     function themes_base_path()
     {
         $base = __DIR__ . '/../../../';
-        $vendor = realpath( $base . 'vendor' );
-        $themes = realpath( $base . 'themes' );
+        $vendor = realpath($base . 'vendor');
+        $themes = realpath($base . 'themes');
 
-        if( is_dir( $vendor ) ) {
-
-            return $themes;
-        }
-        if( is_dir( $themes ) ) {
+        if(is_dir($vendor)) {
 
             return $themes;
         }
-        if( getenv( 'APP_ENV' ) === 'testing' ) {
+        if(is_dir($themes)) {
 
-            return realpath( __DIR__ . '/tests/themes' );
+            return $themes;
+        }
+        if(getenv('APP_ENV') === 'testing') {
+
+            return realpath(__DIR__ . '/tests/themes');
         }
 
         return false;
     }
 }
 
-if( ! function_exists( 'theme_manager_starter' ) ) {
+if(!function_exists('theme_manager_starter')) {
     /**
      * @return \ThemeManager\Starter
      */
@@ -41,7 +41,7 @@ if( ! function_exists( 'theme_manager_starter' ) ) {
     }
 }
 
-if( !function_exists( 'theme_manager' ) ) {
+if(!function_exists('theme_manager')) {
     /**
      * @param null    $basePath
      * @param array   $requiredFields
@@ -49,14 +49,14 @@ if( !function_exists( 'theme_manager' ) ) {
      *
      * @return \ThemeManager\ThemeManager
      */
-    function theme_manager( $basePath = null, Array $requiredFields = [], $exceptionOnInvalid = false )
+    function theme_manager($basePath = null, Array $requiredFields = [], $exceptionOnInvalid = false)
     {
-        if( function_exists( 'app' ) && class_exists( 'Illuminate\Container\Container' ) &&
-            Config::get( 'app.aliases.ThemeManager' ) == 'ThemeManager\Facade\ThemeManager' )
-        {
+        if(function_exists('app') && class_exists('Illuminate\Container\Container') &&
+            Config::get('app.aliases.ThemeManager') == 'ThemeManager\Facade\ThemeManager'
+        ) {
             return \ThemeManager::returnThis();
         }
 
-        return new ThemeManager( theme_manager_starter()->start( $basePath, $requiredFields, $exceptionOnInvalid ) );
+        return new ThemeManager(theme_manager_starter()->start($basePath, $requiredFields, $exceptionOnInvalid));
     }
 }
