@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Config;
 use ThemeManager\Starter;
 use ThemeManager\ThemeManager;
 
-if(!function_exists('themes_base_path')) {
+if (!function_exists('themes_base_path')) {
     /**
      * @return string|boolean
      */
@@ -14,15 +14,15 @@ if(!function_exists('themes_base_path')) {
         $vendor = realpath($base . 'vendor');
         $themes = realpath($base . 'themes');
 
-        if(is_dir($vendor)) {
+        if (is_dir($vendor)) {
 
             return $themes;
         }
-        if(is_dir($themes)) {
+        if (is_dir($themes)) {
 
             return $themes;
         }
-        if(getenv('APP_ENV') === 'testing') {
+        if (getenv('APP_ENV') === 'testing') {
 
             return realpath(__DIR__ . '/tests/themes');
         }
@@ -31,7 +31,7 @@ if(!function_exists('themes_base_path')) {
     }
 }
 
-if(!function_exists('theme_manager_starter')) {
+if (!function_exists('theme_manager_starter')) {
     /**
      * @return \ThemeManager\Starter
      */
@@ -41,7 +41,7 @@ if(!function_exists('theme_manager_starter')) {
     }
 }
 
-if(!function_exists('theme_manager')) {
+if (!function_exists('theme_manager')) {
     /**
      * @param null    $basePath
      * @param array   $requiredFields
@@ -51,7 +51,7 @@ if(!function_exists('theme_manager')) {
      */
     function theme_manager($basePath = null, Array $requiredFields = [], $exceptionOnInvalid = false)
     {
-        if(function_exists('app') && class_exists('Illuminate\Container\Container') &&
+        if (function_exists('app') && class_exists('Illuminate\Container\Container') &&
             Config::get('app.aliases.ThemeManager') == 'ThemeManager\Facade\ThemeManager'
         ) {
             return \ThemeManager::returnThis();

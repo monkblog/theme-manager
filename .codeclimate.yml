@@ -10,7 +10,7 @@ ratings:
   paths:
     - "src/**.php"
 exclude_paths:
-- "example.php"
+- "examples.php"
 - "helpers.php"
 - "phpunit.php"
 - "src/ThemeManager/config/**/*"

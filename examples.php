@@ -8,7 +8,7 @@ $requiredFields = ['display_name', 'version', 'license',];
 /**
  * Laravel
  */
-if(function_exists('app') && function_exists('base_path') && class_exists('ThemeManager')) {
+if (function_exists('app') && function_exists('base_path') && class_exists('ThemeManager')) {
     use ThemeManager;
 
     $allThemes = ThemeMangaer::all();
@@ -16,7 +16,7 @@ if(function_exists('app') && function_exists('base_path') && class_exists('Theme
     $themeExists = ThemeMangaer::themeExists('theme-name');
 
     /** @var $theme ThemeManager\Theme */
-    if($themeExists) {
+    if ($themeExists) {
         $theme = ThemeMangaer::getTheme('theme-name');
     }
     else {

@@ -5,7 +5,6 @@ namespace ThemeManager\Exceptions;
 use Exception;
 use OutOfBoundsException;
 
-
 class MissingThemesFolder extends OutOfBoundsException
 {
 
