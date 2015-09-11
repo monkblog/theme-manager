@@ -12,5 +12,4 @@ class MissingRequiredFields extends NoThemeName
         $fields = implode(', ', $theme->getMissingRequiredFields());
         parent::__construct($themePath, $theme, "is missing {$theme->countMissingRequiredFields()} required field(s): [ {$fields} ].", $code, $previous);
     }
-
 }

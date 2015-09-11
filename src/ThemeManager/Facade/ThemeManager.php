@@ -16,5 +16,4 @@ class ThemeManager extends Facade
     {
         return 'theme.manager';
     }
-
 }

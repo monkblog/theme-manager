@@ -39,5 +39,4 @@ class NoThemeData extends OutOfBoundsException
     {
         return $this->theme;
     }
-
 }

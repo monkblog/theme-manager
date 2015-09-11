@@ -320,5 +320,4 @@ class Theme
     {
         return $this->basePath . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
-
 }

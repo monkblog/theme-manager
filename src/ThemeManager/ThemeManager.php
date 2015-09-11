@@ -128,5 +128,4 @@ class ThemeManager
     {
         return $this;
     }
-
 }

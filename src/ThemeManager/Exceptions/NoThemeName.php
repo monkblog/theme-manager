@@ -24,5 +24,4 @@ class NoThemeName extends NoThemeData
     {
         parent::__construct($themePath, $theme, ($subMessage ?: "doesn't define 'name'"), $code, $previous);
     }
-
 }
