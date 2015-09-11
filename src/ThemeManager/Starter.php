@@ -153,5 +153,4 @@ class Starter
             throw $error;
         }
     }
-
 }

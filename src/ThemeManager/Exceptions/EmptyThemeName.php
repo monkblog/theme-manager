@@ -11,5 +11,4 @@ class EmptyThemeName extends NoThemeName
     {
         parent::__construct($themePath, $theme, "'name' entry is empty", $code, $previous);
     }
-
 }

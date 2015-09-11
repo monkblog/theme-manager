@@ -13,5 +13,4 @@ class MissingThemesFolder extends OutOfBoundsException
         $message = 'Expecting themes folder at ' . ($createdPath ?: themes_base_path());
         parent::__construct($message, $code, $previous);
     }
-
 }
