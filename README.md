@@ -1,6 +1,7 @@
 A simple theme manager that can be used with [Laravel 5](http://laravel.com/).
 
 [![Circle CI](https://circleci.com/gh/monkblog/theme-manager.svg?style=svg)](https://circleci.com/gh/monkblog/theme-manager)
+[![StyleCI](https://styleci.io/repos/37232886/shield)](https://styleci.io/repos/37232886)
 [![Code Climate](https://codeclimate.com/github/monkblog/theme-manager/badges/gpa.svg)](https://codeclimate.com/github/monkblog/theme-manager)
 [![Test Coverage](https://codeclimate.com/github/monkblog/theme-manager/badges/coverage.svg)](https://codeclimate.com/github/monkblog/theme-manager/coverage)
 [![Total Downloads](https://poser.pugx.org/monkblog/theme-manager/d/total.svg)](https://packagist.org/packages/monkblog/theme-manager)
