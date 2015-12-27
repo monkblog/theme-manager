@@ -36,3 +36,6 @@ bower_components/
 
 ## SASS
 .sass-cache
+
+## Test Vendor
+tests/themes/test-autoload/vendor/
