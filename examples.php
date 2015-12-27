@@ -1,34 +1,33 @@
 <?php
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $basePath = null;
 $requiredFields = ['display_name', 'version', 'license',];
 
 /**
  * Laravel
- */
-if (function_exists('app') && function_exists('base_path') && class_exists('ThemeManager')) {
-    use ThemeManager;
 
-    $allThemes = ThemeMangaer::all();
+if (function_exists('app') && function_exists('base_path') && class_exists('ThemeManager')) {
+
+    $allThemes = \ThemeMangaer::all();
 
     $themeExists = ThemeMangaer::themeExists('theme-name');
 
-    /** @var $theme ThemeManager\Theme */
     if ($themeExists) {
-        $theme = ThemeMangaer::getTheme('theme-name');
+        $theme = \ThemeMangaer::getTheme('theme-name');
     }
     else {
-        $theme = ThemeManager::first();
+        $theme = \ThemeManager::first();
     }
 
     $themeName = $theme->getName();
 
     $themeMeta = $theme->getInfo();
 
-    ThemeMangaer::addThemeLocation(base_path('/path/to/alternative/themes-folder'));
+    \ThemeMangaer::addThemeLocation(base_path('/path/to/alternative/themes-folder'));
 }
+*/
 
 /**
  * Via new Class
