@@ -5,7 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 $basePath = null;
 $requiredFields = ['display_name', 'version', 'license',];
 
-/**
+/*
  * Laravel
 
 if (function_exists('app') && function_exists('base_path') && class_exists('ThemeManager')) {
