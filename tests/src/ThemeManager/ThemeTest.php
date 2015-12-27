@@ -5,10 +5,8 @@ namespace ThemeManager;
 use PHPUnit_Framework_TestCase;
 use ThemeManager\Exceptions\NoThemeData;
 
-
 class ThemeTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      * @group theme
@@ -71,7 +69,6 @@ class ThemeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @group theme
-     *
      */
     public function testThemeRequiredFieldsPass()
     {
@@ -87,15 +84,13 @@ class ThemeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @group theme
-     *
      */
     public function testThemeRequiredFieldsFail()
     {
         $requiredFields = ['version', 'type', 'assets'];
         try {
             new Theme(themes_base_path() . '/demo', $requiredFields);
-        }
-        catch (NoThemeData $error) {
+        } catch (NoThemeData $error) {
             $theme = $error->getTheme();
             $this->assertEquals('Missing Required Field(s)', $theme->getErrorType());
             $this->assertEquals($requiredFields, $theme->getMissingRequiredFields());
@@ -105,14 +100,12 @@ class ThemeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @group theme
-     *
      */
     public function testThemeUndefinedName()
     {
         try {
             new Theme(themes_base_path() . '/../themes-test/no-name');
-        }
-        catch (NoThemeData $error) {
+        } catch (NoThemeData $error) {
             $theme = $error->getTheme();
             $this->assertEquals('No Name', $theme->getErrorType());
         }
@@ -121,14 +114,12 @@ class ThemeTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      * @group theme
-     *
      */
     public function testThemeEmptyName()
     {
         try {
             new Theme(themes_base_path() . '/../themes-test/empty-name');
-        }
-        catch (NoThemeData $error) {
+        } catch (NoThemeData $error) {
             $theme = $error->getTheme();
             $this->assertEquals('Empty Theme Name', $theme->getErrorType());
         }
@@ -166,5 +157,4 @@ class ThemeTest extends PHPUnit_Framework_TestCase
     {
         new Theme(themes_base_path() . '/../themes-test/empty-name');
     }
-
 }

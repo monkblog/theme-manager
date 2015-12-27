@@ -4,12 +4,10 @@ namespace ThemeManager;
 
 class ThemeManager
 {
-
     /**
      * @var \ThemeManager\ThemeCollection
      */
     private $themes;
-
 
     /**
      * @param ThemeCollection $themes
@@ -46,7 +44,7 @@ class ThemeManager
     /**
      * @param $name
      *
-     * @return boolean|Theme
+     * @return bool|Theme
      */
     public function getTheme($name)
     {
@@ -56,7 +54,7 @@ class ThemeManager
     /**
      * @param $name
      *
-     * @return boolean
+     * @return bool
      */
     public function themeExists($name)
     {
@@ -110,7 +108,7 @@ class ThemeManager
      */
     public function addThemeLocation($path)
     {
-        if (!empty($path) && !$this->themes()->pathExists($path)) {
+        if (! empty($path) && ! $this->themes()->pathExists($path)) {
             $addLocation = (new Starter(true))->start($path, $this->themes()->getRequiredFields(), $this->themes()->getExceptionOnInvalid());
 
             $all = array_merge($this->getInvalidThemes(), $addLocation->all(), $addLocation->getInvalidThemes());

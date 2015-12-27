@@ -8,14 +8,13 @@ use ThemeManager\Theme;
 class NoThemeName extends NoThemeData
 {
     /**
-     * @var boolean|Theme
+     * @var bool|Theme
      */
     protected $theme = false;
 
-
     /**
      * @param string         $themePath
-     * @param boolean        $subMessage
+     * @param bool        $subMessage
      * @param Theme|null     $theme
      * @param int            $code
      * @param Exception|null $previous
