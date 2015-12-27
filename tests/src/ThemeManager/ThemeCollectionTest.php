@@ -4,10 +4,8 @@ namespace ThemeManager;
 
 use PHPUnit_Framework_TestCase;
 
-
 class ThemeCollectionTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var ThemeCollection
      */
@@ -22,7 +20,6 @@ class ThemeCollectionTest extends PHPUnit_Framework_TestCase
      * @var array
      */
     protected $themeArray;
-
 
     public function setUp()
     {
@@ -69,7 +66,7 @@ class ThemeCollectionTest extends PHPUnit_Framework_TestCase
     public function testAllThemNames()
     {
         $allThemeNames = $this->collection->allThemeNames();
-        $this->assertTrue(is_array($allThemeNames) && !empty($allThemeNames));
+        $this->assertTrue(is_array($allThemeNames) && ! empty($allThemeNames));
 
         $this->assertEquals('demo-theme-yml', array_shift($allThemeNames));
     }

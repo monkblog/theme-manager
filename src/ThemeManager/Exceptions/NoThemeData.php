@@ -9,14 +9,13 @@ use ThemeManager\Theme;
 class NoThemeData extends OutOfBoundsException
 {
     /**
-     * @var boolean|Theme
+     * @var bool|Theme
      */
     protected $theme = false;
 
-
     /**
      * @param string         $themePath
-     * @param boolean        $subMessage
+     * @param bool        $subMessage
      * @param Theme|null     $theme
      * @param int            $code
      * @param Exception|null $previous
@@ -25,7 +24,7 @@ class NoThemeData extends OutOfBoundsException
     {
         $message = "Theme {$themePath} " . ($subMessage ?: "doesn't have any theme meta data defined.");
 
-        if (!is_null($theme)) {
+        if (! is_null($theme)) {
             $this->theme = $theme;
         }
 
@@ -33,7 +32,7 @@ class NoThemeData extends OutOfBoundsException
     }
 
     /**
-     * @return boolean|Theme
+     * @return bool|Theme
      */
     public function getTheme()
     {

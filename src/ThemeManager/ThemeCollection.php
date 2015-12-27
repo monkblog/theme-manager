@@ -6,9 +6,8 @@ use Illuminate\Support\Collection;
 
 class ThemeCollection extends Collection
 {
-
     /**
-     * @var boolean
+     * @var bool
      */
     protected $exceptionOnInvalid = false;
 
@@ -32,16 +31,15 @@ class ThemeCollection extends Collection
      */
     protected $themeNames = [];
 
-
     /**
      * Create a new theme collection.
      *
      * @param mixed   $items
-     * @param boolean $themesFolder
+     * @param bool $themesFolder
      * @param array   $requiredFields
-     * @param boolean $exceptionOnInvalid
+     * @param bool $exceptionOnInvalid
      */
-    public function __construct($items = [], $themesFolder = false, Array $requiredFields = [], $exceptionOnInvalid = false)
+    public function __construct($items = [], $themesFolder = false, array $requiredFields = [], $exceptionOnInvalid = false)
     {
         $this->requiredFields = $requiredFields;
         $this->exceptionOnInvalid = $exceptionOnInvalid;
@@ -64,7 +62,7 @@ class ThemeCollection extends Collection
 
     /**
      * @param mixed          $items
-     * @param string|boolean $addPath
+     * @param string|bool $addPath
      *
      * @return static
      */
@@ -96,7 +94,7 @@ class ThemeCollection extends Collection
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getExceptionOnInvalid()
     {
@@ -114,11 +112,11 @@ class ThemeCollection extends Collection
     /**
      * @param string $themesFolder
      *
-     * @return boolean
+     * @return bool
      */
     public function pathExists($themesFolder)
     {
-        return (is_string($themesFolder) && in_array(realpath($themesFolder), $this->themesFolders));
+        return is_string($themesFolder) && in_array(realpath($themesFolder), $this->themesFolders);
     }
 
     /**
@@ -174,7 +172,7 @@ class ThemeCollection extends Collection
     /**
      * @param $name
      *
-     * @return boolean|Theme
+     * @return bool|Theme
      */
     public function getTheme($name)
     {
@@ -199,10 +197,10 @@ class ThemeCollection extends Collection
     /**
      * @param $name
      *
-     * @return boolean
+     * @return bool
      */
     public function themeExists($name)
     {
-        return (in_array($name, $this->themeNames) && !is_null($this->getTheme($name)));
+        return in_array($name, $this->themeNames) && ! is_null($this->getTheme($name));
     }
 }

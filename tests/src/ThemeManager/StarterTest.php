@@ -4,13 +4,11 @@ namespace ThemeManager;
 
 use PHPUnit_Framework_TestCase;
 
-
 class StarterTest extends PHPUnit_Framework_TestCase
 {
-
     public function tearDown()
     {
-        putenv("APP_ENV=testing");
+        putenv('APP_ENV=testing');
     }
 
     /**
@@ -99,9 +97,8 @@ class StarterTest extends PHPUnit_Framework_TestCase
      */
     public function testStartFailNonTestingEnv()
     {
-        putenv("APP_ENV=local");
+        putenv('APP_ENV=local');
 
         (new Starter)->start();
     }
-
 }

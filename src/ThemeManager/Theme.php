@@ -10,7 +10,6 @@ use ThemeManager\Exceptions\NoThemeName;
 
 class Theme
 {
-
     /**
      * @var null|string
      */
@@ -27,7 +26,7 @@ class Theme
     private $basePath;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $error = false;
 
@@ -76,14 +75,13 @@ class Theme
      */
     private $yml;
 
-
     /**
      * @param         $path
      * @param array   $requiredFields
-     * @param boolean $yaml
-     * @param boolean $isSecondary
+     * @param bool $yaml
+     * @param bool $isSecondary
      */
-    public function __construct($path, Array $requiredFields = [], $yaml = false, $isSecondary = false)
+    public function __construct($path, array $requiredFields = [], $yaml = false, $isSecondary = false)
     {
         $this->basePath = $path;
         $this->locationType = ($isSecondary) ? 'Secondary' : 'Primary';
@@ -140,15 +138,13 @@ class Theme
     {
         $info = $this->getInfo();
 
-        if (!is_array($info)) {
+        if (! is_array($info)) {
             $this->setError('No Theme Data');
             throw new NoThemeData($this->getYmlPath(), $this);
-        }
-        elseif (!array_key_exists('name', $info)) {
+        } elseif (! array_key_exists('name', $info)) {
             $this->setError();
             throw new NoThemeName($this->getYmlPath(), $this);
-        }
-        elseif (empty($info['name'])) {
+        } elseif (empty($info['name'])) {
             $this->setError('Empty Theme Name');
             throw new EmptyThemeName($this->getYmlPath(), $this);
         }
@@ -164,16 +160,16 @@ class Theme
      */
     protected function checkRequiredFields()
     {
-        if (!empty($this->requiredFields)) {
+        if (! empty($this->requiredFields)) {
             foreach ($this->requiredFields as $field) {
                 if (is_string($field) && ($this->getInfoByKey($field) === false ||
-                        !isset($this->info[$field]))
+                        ! isset($this->info[$field]))
                 ) {
                     $this->missingRequiredFields[] = $field;
                 }
             }
 
-            if (!empty($this->missingRequiredFields)) {
+            if (! empty($this->missingRequiredFields)) {
                 $this->setError('Missing Required Field(s)');
                 throw new MissingRequiredFields($this->getYmlPath(), $this);
             }
@@ -220,7 +216,7 @@ class Theme
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasError()
     {
@@ -256,7 +252,7 @@ class Theme
      */
     public function registerAutoload()
     {
-        if (!is_null($this->getAutoloadPath())) {
+        if (! is_null($this->getAutoloadPath())) {
             require_once "{$this->getAutoloadPath()}";
         }
 
@@ -282,7 +278,7 @@ class Theme
     /**
      * @param $key
      *
-     * @return boolean|mixed
+     * @return bool|mixed
      */
     public function getInfoByKey($key)
     {
@@ -296,7 +292,7 @@ class Theme
     /**
      * @param $key
      *
-     * @return boolean|mixed
+     * @return bool|mixed
      */
     public function __get($key)
     {

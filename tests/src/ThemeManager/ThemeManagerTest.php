@@ -4,22 +4,19 @@ namespace ThemeManager;
 
 use PHPUnit_Framework_TestCase;
 
-
 class ThemeManagerTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var \ThemeManager\ThemeManager
      */
     protected $themeManager;
-
 
     public function setUp()
     {
         $this->setUpAlternative();
     }
 
-    protected function setUpAlternative($path = null, Array $requiredFields = [], $exceptionOnInvalid = false)
+    protected function setUpAlternative($path = null, array $requiredFields = [], $exceptionOnInvalid = false)
     {
         $this->themeManager = theme_manager($path, $requiredFields, $exceptionOnInvalid);
     }
@@ -154,7 +151,6 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(3, $this->themeManager->countAll());
     }
 
-
     /**
      * @test
      * @group manager
@@ -199,5 +195,4 @@ class ThemeManagerTest extends PHPUnit_Framework_TestCase
 
         $this->themeManager->addThemeLocation($addPath);
     }
-
 }
