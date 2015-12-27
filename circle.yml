@@ -1,16 +1,18 @@
 machine:
   php:
-    version: 5.5.11
+    version: 5.6.14
   timezone:
     America/Chicago
 dependencies:
   pre:
+    - echo "memory_limit = -1" > ~/.phpenv/versions/5.6.14/etc/conf.d/memory.ini
     - pecl install xdebug
+    - sudo composer self-update
     - composer install --no-interaction --optimize-autoloader --prefer-source:
         pwd: tests/themes/test-autoload/
   override:
     - composer install --no-interaction --optimize-autoloader --prefer-source
 test:
   override:
-    - php -d memory_limit=-1 vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-    - if [ -z ${CODECLIMATE_REPO_TOKEN+x} ]; then echo "env CODECLIMATE_REPO_TOKEN was not exported, must be a forked PR"; else ./vendor/bin/test-reporter; fi
+    - php vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+    - if [ -z ${CODECLIMATE_REPO_TOKEN+x} ]; then echo "env CODECLIMATE_REPO_TOKEN not set"; else ./vendor/bin/test-reporter || echo 'Nothing sent, failed'; fi
